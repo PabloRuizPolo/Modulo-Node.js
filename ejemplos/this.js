@@ -1,6 +1,6 @@
 'use strict';
 
-// cerar funcion para usarlo como constructor de objetos,
+// crear funcion para usarlo como constructor de objetos,
 function Fruta(nombre) {
     this.nombre = nombre;
     this.saluda = function(saludo) {console.log(saludo, ', soy ' + this.nombre)}
