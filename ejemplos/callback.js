@@ -6,5 +6,5 @@ function suma(a, b, instrucciones) {
 }
 
 suma(2, 5, function(resultado) {
-    conole.log(resultado);
+    console.log('Este es el resultado '+ resultado);
 })
