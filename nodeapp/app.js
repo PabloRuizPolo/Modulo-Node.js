@@ -12,19 +12,25 @@ app.set('view engine', 'ejs');
 
 
 //Middlewares. Cada vez que llega una peticion, responde con esto.
+
+app.locals.title = 'NodeApp';
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); //ese path.join es multiplataforma, hace que la ruta se pueda leer en todos los sistemas operativos
+//si vas a tener mucho archivos estaticos, puedo usar un servidor web para ello. "apache", "nginex"... son algunos ejemplos.
 
 /*
 app.get('/prueba', (req, res, next) => {
-  //res.send('página de prueba');
+  res.send('página de prueba');
   console.log('Petición:', req.hostname);
-  //next()
+  next()
 })
 */
+
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
