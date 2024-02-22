@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { query, validationResult } = require('express-validator')
+const { query, custom,  validationResult } = require('express-validator')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -59,12 +59,17 @@ router.post('/usuario', (req, res, next) => {
 
 //validaciones
 //GET /enquerystrin?age=20
-router.get('/enquerystring', 
-  query('age').isNumeric().withMessage('must be numeric'), 
+router.get('/enquerystring', [
+  query('age').isNumeric().withMessage('must be numeric'),
+  query('talla').custom(value => {
+    if (value > 5) return true
+    else return false;
+  }).withMessage('must be grater than 5')
+],
   (req, res, next) => {
     validationResult(req).throw(); //Lanza excepcion si ve errores de validacion
 
-  res.send('ok')
+    res.send('ok')
 });
 
 
