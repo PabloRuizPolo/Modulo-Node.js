@@ -4,7 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('./lib/connectMongoose');
+
+
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +36,11 @@ app.get('/prueba', (req, res, next) => {
 })
 */
 
+//Rutas del api
+app.use('/api/agentes', require('./routes/api/agentes'))
 
+
+// Rutas del website. Lo que devuelve paginas con res.render()
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
