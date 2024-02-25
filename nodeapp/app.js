@@ -57,14 +57,24 @@ app.use(function(err, req, res, next) {
     console.log(errInfo);
     err.message = `Not valid - ${errInfo.type} ${errInfo.path} in ${errInfo.location} ${errInfo.msg}`;
     err.status = 422;
+  };
+
+
+  res.status(err.status || 500);
+  
+  // Si el fallo es en API responder en formato json
+  if (req.originalUrl.startsWith('/api/')) {
+    res.json({ error: err.message });
+    return
   }
+
+
 
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
   res.render('error');
 });
 
