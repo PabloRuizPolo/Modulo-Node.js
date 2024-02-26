@@ -1,5 +1,18 @@
 # NodeApp
 
+Install dependencies.
+
+```js
+npm install
+```
+Initialize the database
+
+**Warning, the next command deletes all the database!!!**
+```sh
+npm run init-db
+```
+
+
 ## Development
 
 To start the application in developent mode use:

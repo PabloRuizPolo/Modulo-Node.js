@@ -6,22 +6,33 @@ const Agente = require('../../models/Agente')
 devuelve una lista de agentes */
 router.get('/', async function(req, res, next) {
     try {
+        // filtrar
         const filterByName = req.query.name;
         const filterByAge = req.query.age;
+        // Paginación
+        // http://127.0.0.1:3000/api/agentes?skip=2&limit=2
+        const skip = req.query.skip;
+        const limit = req.query.limit;
+        // Ordenación
+        // http://127.0.0.1:3000/api/agentes?sort=age
+        const sort = req.query.sort;
+        // Field selection
+        // http://127.0.0.1:3000/api/agentes?fields=name%20-_id
+        const fields = req.query.fields;
 
         const filter = {}
 
         //filtros ?name=nombre
         if (filterByName) {
             filter.name = filterByName;
-        }
+        };
 
         //filtros ?age=nombre
         if (filterByAge) {
             filter.age = filterByAge;
-        }
+        };
 
-        const agentes = await Agente.find(filter);
+        const agentes = await Agente.listar(filter, skip, limit, sort, fields);
         res.json({ results: agentes});
         
     } catch (error) {
